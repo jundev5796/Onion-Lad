@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Onion Lad.sln"
+    "dotnet.defaultSolution": "Onion-Lad.sln"
 }
