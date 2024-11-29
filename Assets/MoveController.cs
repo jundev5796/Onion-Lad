@@ -4,6 +4,7 @@ public class MoveController : MonoBehaviour
 {
 
     private Rigidbody2D rb;
+    private Animator anim;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
     private float xInput;
@@ -18,11 +19,14 @@ public class MoveController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        AnimationControllers();
+
         CollisionChecks();
 
         xInput = Input.GetAxisRaw("Horizontal");
@@ -33,6 +37,12 @@ public class MoveController : MonoBehaviour
         {
             Jump();
         }
+    }
+
+    private void AnimationControllers()
+    {
+        bool isMoving = rb.linearVelocityX != 0;
+        anim.SetBool("isMoving", isMoving);
     }
 
     private void CollisionChecks() 
