@@ -15,6 +15,8 @@ public class MoveController : MonoBehaviour
     [SerializeField] private LayerMask whatIsGround;
     private bool isGrounded;
 
+    private bool facingRight = true;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -26,17 +28,16 @@ public class MoveController : MonoBehaviour
     void Update()
     {
         AnimationControllers();
-
         CollisionChecks();
+        FlipController();
 
         xInput = Input.GetAxisRaw("Horizontal");
 
         Movement();
 
         if (Input.GetKeyDown(KeyCode.Space))
-        {
             Jump();
-        }
+
     }
 
     private void AnimationControllers()
@@ -46,10 +47,6 @@ public class MoveController : MonoBehaviour
         anim.SetBool("isGrounded", isGrounded);
     }
 
-    private void CollisionChecks() 
-    {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
-    }
 
     private void Jump()
     {
@@ -60,6 +57,25 @@ public class MoveController : MonoBehaviour
     private void Movement()
     {
         rb.linearVelocity = new Vector2(xInput * moveSpeed, rb.linearVelocityY);
+    }
+
+    private void FlipController()
+    {
+        if (rb.linearVelocityX < 0 && facingRight)
+            Flip();
+        else if (rb.linearVelocityX > 0 && !facingRight)
+            Flip();
+    }
+
+    private void Flip()
+    {
+        facingRight = !facingRight;
+        transform.Rotate(0, 180, 0);
+    }
+
+    private void CollisionChecks() 
+    {
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
     }
 
     private void OnDrawGizmos() 
