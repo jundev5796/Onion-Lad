@@ -8,6 +8,8 @@ public class GunController : MonoBehaviour
     [SerializeField] private Transform gun;
     [SerializeField] private float gunDistance = 1.5f;
 
+    private bool gunFacingRight = true;
+
     // Update is called once per frame
     void Update()
     {
@@ -21,6 +23,22 @@ public class GunController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
             Shoot();
+        
+        GunFlipController(mousePos);
+    }
+
+    private void GunFlipController(Vector3 mousePos)
+    {
+        if (mousePos.x < gun.position.x && gunFacingRight)
+            GunFlip();
+        else if (mousePos.x > gun.position.x && !gunFacingRight)
+            GunFlip();
+    }
+
+    private void GunFlip()
+    {
+        gunFacingRight = !gunFacingRight;
+        gun.localScale = new Vector3(gun.localScale.x, gun.localScale.y * -1, gun.localScale.z);
     }
 
     public void Shoot()
