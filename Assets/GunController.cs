@@ -10,6 +10,10 @@ public class GunController : MonoBehaviour
 
     private bool gunFacingRight = true;
 
+    [Header("Bullet")]
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private float bulletSpeed;
+
     // Update is called once per frame
     void Update()
     {
@@ -44,5 +48,7 @@ public class GunController : MonoBehaviour
     public void Shoot()
     {
         gunAnim.SetTrigger("Shoot");
+
+        GameObject newBullet = Instantiate(bulletPrefab, gun.position, Quaternion.identity);
     }
 }
