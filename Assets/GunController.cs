@@ -26,7 +26,7 @@ public class GunController : MonoBehaviour
         gun.position = transform.position + Quaternion.Euler(0, 0, angle) * new Vector3(gunDistance, 0, 0);
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
-            Shoot();
+            Shoot(direction);
         
         GunFlipController(mousePos);
     }
@@ -45,10 +45,11 @@ public class GunController : MonoBehaviour
         gun.localScale = new Vector3(gun.localScale.x, gun.localScale.y * -1, gun.localScale.z);
     }
 
-    public void Shoot()
+    public void Shoot(Vector3 direction)
     {
         gunAnim.SetTrigger("Shoot");
 
         GameObject newBullet = Instantiate(bulletPrefab, gun.position, Quaternion.identity);
+        newBullet.GetComponent<Rigidbody2D>().linearVelocity = direction.normalized * bulletSpeed;
     }
 }
