@@ -9,6 +9,9 @@ public class TargetSpawner : MonoBehaviour
     [SerializeField] private float cooldown;
     private float timer;
 
+    private int sushiCreated;
+    private int sushiMilestone;
+
     void Update()
     {
         timer -= Time.deltaTime;
@@ -16,6 +19,13 @@ public class TargetSpawner : MonoBehaviour
         if (timer < 0)
         {
             timer = cooldown;
+            sushiCreated++;
+
+            if (sushiCreated > sushiMilestone && cooldown > .5f)
+            {
+                sushiMilestone += 10;
+                cooldown -= .3f;
+            }
             
             GameObject newTarget = Instantiate(targetPrefab);
 
