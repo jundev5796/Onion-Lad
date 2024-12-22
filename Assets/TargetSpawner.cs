@@ -2,9 +2,12 @@ using UnityEngine;
 
 public class TargetSpawner : MonoBehaviour
 {
+    [SerializeField] private Sprite[] targetSprite;
+
+    [SerializeField] private BoxCollider2D cd;
     [SerializeField] private GameObject targetPrefab;
     [SerializeField] private float cooldown;
-    public float timer;
+    private float timer;
 
     void Update()
     {
@@ -13,7 +16,15 @@ public class TargetSpawner : MonoBehaviour
         if (timer < 0)
         {
             timer = cooldown;
-            Debug.Log("New Target");
+            
+            GameObject newTarget = Instantiate(targetPrefab);
+
+            float randomX = Random.Range(cd.bounds.min.x, cd.bounds.max.x);
+
+            newTarget.transform.position = new Vector2(randomX, transform.position.y);
+
+            int randomIndex = Random.Range(0, targetSprite.Length);
+            newTarget.GetComponent<SpriteRenderer>().sprite = targetSprite[randomIndex];
         }
     }
 }
