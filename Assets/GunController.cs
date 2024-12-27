@@ -32,7 +32,7 @@ public class GunController : MonoBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         gun.position = transform.position + Quaternion.Euler(0, 0, angle) * new Vector3(gunDistance, 0, 0);
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && HaveBullets())
             Shoot(direction);
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -57,12 +57,7 @@ public class GunController : MonoBehaviour
 
     public void Shoot(Vector3 direction)
     {
-        if (currentBullets <= 0)
-            return;
-
         gunAnim.SetTrigger("Shoot");
-
-        currentBullets--;
 
         GameObject newBullet = Instantiate(bulletPrefab, gun.position, Quaternion.identity);
         newBullet.GetComponent<Rigidbody2D>().linearVelocity = direction.normalized * bulletSpeed;
@@ -73,5 +68,16 @@ public class GunController : MonoBehaviour
     private void ReloadGun()
     {
         currentBullets = maxBullets;
+    }
+
+    public bool HaveBullets()
+    {
+        if (currentBullets <= 0)
+        {
+            return false;
+        }
+
+        currentBullets--;
+        return true;
     }
 }
