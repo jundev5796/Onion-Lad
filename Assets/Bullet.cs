@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public UI ui;
     private Rigidbody2D rb => GetComponent<Rigidbody2D>();
 
     void Update() => transform.right = rb.linearVelocity;
@@ -12,6 +13,8 @@ public class Bullet : MonoBehaviour
         {
             Destroy(gameObject);
             Destroy(collision.gameObject);
+
+            UI.instance.AddScore();
         }
     }
 }
