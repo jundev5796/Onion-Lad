@@ -58,6 +58,7 @@ public class GunController : MonoBehaviour
     public void Shoot(Vector3 direction)
     {
         gunAnim.SetTrigger("Shoot");
+        UI.instance.UpdateAmmoInfo(currentBullets, maxBullets);
 
         GameObject newBullet = Instantiate(bulletPrefab, gun.position, Quaternion.identity);
         newBullet.GetComponent<Rigidbody2D>().linearVelocity = direction.normalized * bulletSpeed;
@@ -68,6 +69,7 @@ public class GunController : MonoBehaviour
     private void ReloadGun()
     {
         currentBullets = maxBullets;
+        UI.instance.UpdateAmmoInfo(currentBullets, maxBullets);
     }
 
     public bool HaveBullets()
@@ -78,7 +80,6 @@ public class GunController : MonoBehaviour
         }
 
         currentBullets--;
-        UI.instance.UpdateAmmoInfo(currentBullets, maxBullets);
         return true;
     }
 }
