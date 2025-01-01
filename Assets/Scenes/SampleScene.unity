@@ -1694,6 +1694,7 @@ MonoBehaviour:
   scoreText: {fileID: 1075617962}
   timerText: {fileID: 1438184534}
   ammoText: {fileID: 1879330361}
+  gunController: {fileID: 639476279}
 --- !u!1 &1530950717
 GameObject:
   m_ObjectHideFlags: 0
