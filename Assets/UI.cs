@@ -11,10 +11,6 @@ public class UI : MonoBehaviour
 
     private int scoreValue;
 
-    [Space]
-
-    [SerializeField] private GunController gunController;
-
     private void Awake() 
     {
         instance = this;    
@@ -29,13 +25,16 @@ public class UI : MonoBehaviour
     {
         if (Time.time >= 1)
             timerText.text = Time.time.ToString("#,#");
-
-        ammoText.text = gunController.currentBullets + " / " + gunController.maxBullets;
     }
 
     public void AddScore()
     {
         scoreValue++;
         scoreText.text = scoreValue.ToString("#,#");
+    }
+
+    public void UpdateAmmoInfo(int currentBullets, int maxBullets)
+    {
+        ammoText.text = currentBullets + "/" + maxBullets;
     }
 }

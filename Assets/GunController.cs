@@ -13,8 +13,8 @@ public class GunController : MonoBehaviour
     [Header("Bullet")]
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float bulletSpeed;
-    public int currentBullets;
-    public int maxBullets = 15;
+    [SerializeField] private int maxBullets = 15;
+    private int currentBullets;
 
     private void Start()
     {
@@ -78,6 +78,7 @@ public class GunController : MonoBehaviour
         }
 
         currentBullets--;
+        UI.instance.UpdateAmmoInfo(currentBullets, maxBullets);
         return true;
     }
 }
