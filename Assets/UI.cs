@@ -1,16 +1,20 @@
+using TMPro;
 using UnityEngine;
 
 public class UI : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI timerText;
+    [SerializeField] private TextMeshProUGUI ammoText;
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (Time.time >= 1)
+            timerText.text = Time.time.ToString("#,#");
     }
 }
